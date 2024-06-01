@@ -19,7 +19,7 @@ Basta utilizar o comando:
 
 Para iniciar o projeto, basta usar:
 
- `npm start`
+ `npm run start`
 
  
 
