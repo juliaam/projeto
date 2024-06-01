@@ -1,9 +1,9 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { IconButton } from "../IconButton/IconButton.tsx";
-import { Input } from "../Input/Input.tsx";
+import { IconButton } from "../../IconButton/IconButton.tsx";
+import { Input } from "../../Input/Input.tsx";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Pencil, Plus, XIcon } from "lucide-react";
-import type { Car } from "../../types/Car.ts";
+import type { Car } from "../../../types/Car.ts";
 import "./CarList.css";
 
 type CarListProps = {
