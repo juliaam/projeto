@@ -23,8 +23,8 @@ export function CarForm() {
   const [fieldMissing, setFieldMissing] = useState("");
   const navigate = useNavigate();
 
-  const goToMain = (formData?: any) => {
-    navigate("/", { state: { formData } });
+  const goToMain = (updatedCars) => {
+    navigate("/", { state: { cars: updatedCars } });
   };
 
   const handleInputChange = (event) => {
@@ -49,19 +49,21 @@ export function CarForm() {
   };
 
   const handleSubmit = async () => {
-    const dataWithId = {
-      ...formData,
-      id: generateId(),
-    };
+    const carsLocalStorage =
+      JSON.parse(localStorage.getItem("cars") as string) || [];
+
+    const updatedCars = carToEdit
+      ? carsLocalStorage.map((car) => (car.id === formData.id ? formData : car))
+      : [...carsLocalStorage, { ...formData, id: generateId() }];
 
     if (isValid()) {
-      goToMain(dataWithId);
+      localStorage.setItem("cars", JSON.stringify(updatedCars));
+      goToMain(updatedCars);
       alert(`Carro ${carToEdit ? "editado" : "adicionado"} com sucesso!`);
       return;
     }
     alert("Preencha os dados corretamente");
   };
-
   return (
     <div className="car-form">
       <div className="input-group">

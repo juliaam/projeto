@@ -1,10 +1,11 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { IconButton } from "../../IconButton/IconButton.tsx";
 import { Input } from "../../Input/Input.tsx";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Pencil, Plus, XIcon } from "lucide-react";
 import type { Car } from "../../../types/Car.ts";
 import "./CarList.css";
+import { useEffect } from "react";
 
 type CarListProps = {
   cars: Car[];
@@ -14,35 +15,25 @@ const format = (value: string): string => value.toLowerCase().trim();
 
 export function CarList({ cars }: CarListProps) {
   const [inputValue, setInputValue] = useState("");
-  const [allCars, setAllCars] = useState<Car[]>(cars);
+  const [allCars, setAllCars] = useState<Car[]>([]);
   const navigate = useNavigate();
-  const location = useLocation();
 
-  const { formData } = location.state || {};
-
-  const handleChangeAllCars = () => {
-    const { formData } = location.state || {};
-
-    const carToEdit = allCars.some((car) => car.id === formData.id);
-
-    if (carToEdit) {
-      const allCarsUpdated = allCars.map((car) => {
-        if (car.id === formData.id) {
-          return formData;
-        }
-        return car;
-      });
-      setAllCars(allCarsUpdated);
-      return;
-    }
-    setAllCars([...allCars, formData]);
-  };
-
+  // Carrega os carros do localStorage ao inicializar o componente
   useEffect(() => {
-    if (formData) {
-      handleChangeAllCars();
+    const carsLocalStorage = JSON.parse(localStorage.getItem("cars") as string);
+    if (carsLocalStorage) {
+      setAllCars(carsLocalStorage);
+    } else {
+      localStorage.setItem("cars", JSON.stringify(cars));
+      setAllCars(cars);
     }
-  }, []);
+  }, [cars]);
+
+  // Função para atualizar o localStorage e o estado
+  const updateCars = (newCars: Car[]) => {
+    localStorage.setItem("cars", JSON.stringify(newCars));
+    setAllCars(newCars);
+  };
 
   const goToCarForm = () => {
     navigate("/carro/formulario");
@@ -54,7 +45,7 @@ export function CarList({ cars }: CarListProps) {
 
   const removeCar = (id: string) => {
     const updatedCars = allCars.filter((car) => car.id !== id);
-    setAllCars(updatedCars);
+    updateCars(updatedCars);
   };
 
   const search = (event: ChangeEvent<HTMLInputElement>) => {
