@@ -19,7 +19,9 @@ Basta utilizar o comando:
 
 Para iniciar o projeto, basta usar:
 
- `npm start`
+ ```bash
+ npm run start
+```
 
  
 
