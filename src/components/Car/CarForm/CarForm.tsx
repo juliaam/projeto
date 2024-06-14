@@ -3,19 +3,19 @@ import { Input } from "../../Input/Input.tsx";
 import { IconButton } from "../../IconButton/IconButton.tsx";
 import { Check } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { generateId } from "../../../helpers/generateId.ts";
-
 import "./CarForm.css";
+import useCarsStore from "../../../stores/cars.ts";
+import { Car } from "../../../types/Car.ts";
 
 export function CarForm() {
   const location = useLocation();
   const carToEdit = location.state?.car;
+  const { addCar, editCar, cars } = useCarsStore();
 
   const [formData, setFormData] = useState({
-    id: carToEdit?.id || "",
+    id: carToEdit?.id || 0,
     name: carToEdit?.name || "",
     color: carToEdit?.color || "",
-    licensePlate: carToEdit?.licensePlate || "",
     year: carToEdit?.year || "",
     brand: carToEdit?.brand || "",
   });
@@ -23,8 +23,8 @@ export function CarForm() {
   const [fieldMissing, setFieldMissing] = useState("");
   const navigate = useNavigate();
 
-  const goToMain = (updatedCars) => {
-    navigate("/", { state: { cars: updatedCars } });
+  const goToMain = () => {
+    navigate("/");
   };
 
   const handleInputChange = (event) => {
@@ -48,22 +48,33 @@ export function CarForm() {
     return !missingField;
   };
 
-  const handleSubmit = async () => {
-    const carsLocalStorage =
-      JSON.parse(localStorage.getItem("cars") as string) || [];
+  const generateId = () => {
+    if (cars.length) {
+      const ids = cars.map((car: Car) => car.id);
+      return Math.max(...ids) + 1;
+    }
+    return 1;
+  };
 
-    const updatedCars = carToEdit
-      ? carsLocalStorage.map((car) => (car.id === formData.id ? formData : car))
-      : [...carsLocalStorage, { ...formData, id: generateId() }];
-
-    if (isValid()) {
-      localStorage.setItem("cars", JSON.stringify(updatedCars));
-      goToMain(updatedCars);
-      alert(`Carro ${carToEdit ? "editado" : "adicionado"} com sucesso!`);
+  const submit = async () => {
+    if (!isValid()) {
+      alert("Preencha os dados corretamente");
       return;
     }
-    alert("Preencha os dados corretamente");
+
+    if (carToEdit) {
+      editCar(formData);
+      alert("Seu carro foi editado com sucesso!");
+      goToMain();
+      return;
+    }
+
+    formData.id = generateId();
+    addCar(formData);
+    alert("Seu carro foi criado com sucesso!");
+    goToMain();
   };
+
   return (
     <div className="car-form">
       <div className="input-group">
@@ -77,12 +88,6 @@ export function CarForm() {
           label="Cor"
           name="color"
           value={formData.color}
-          onChange={handleInputChange}
-        />
-        <Input
-          label="Placa"
-          name="licensePlate"
-          value={formData.licensePlate}
           onChange={handleInputChange}
         />
         <Input
@@ -103,7 +108,7 @@ export function CarForm() {
           Necessário preencher: '{fieldMissing}'
         </div>
       )}
-      <IconButton className="button-form" onClick={handleSubmit}>
+      <IconButton className="button-form" onClick={submit}>
         <div className="icon-container">
           <Check />
           Confirmar

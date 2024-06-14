@@ -1,8 +1,7 @@
 export type Car = {
-  id: string;
+  id: number;
   name: string;
   color: string;
-  licensePlate: string;
   year: string;
   brand: string;
 };

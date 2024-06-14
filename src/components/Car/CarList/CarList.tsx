@@ -5,35 +5,19 @@ import { useNavigate } from "react-router-dom";
 import { Pencil, Plus, XIcon } from "lucide-react";
 import type { Car } from "../../../types/Car.ts";
 import "./CarList.css";
-import { useEffect } from "react";
+import useCarsStore from "../../../stores/cars.ts";
 
 type CarListProps = {
   cars: Car[];
+  reload: any;
 };
 
 const format = (value: string): string => value.toLowerCase().trim();
 
 export function CarList({ cars }: CarListProps) {
   const [inputValue, setInputValue] = useState("");
-  const [allCars, setAllCars] = useState<Car[]>([]);
   const navigate = useNavigate();
-
-  // Carrega os carros do localStorage ao inicializar o componente
-  useEffect(() => {
-    const carsLocalStorage = JSON.parse(localStorage.getItem("cars") as string);
-    if (carsLocalStorage) {
-      setAllCars(carsLocalStorage);
-    } else {
-      localStorage.setItem("cars", JSON.stringify(cars));
-      setAllCars(cars);
-    }
-  }, [cars]);
-
-  // Função para atualizar o localStorage e o estado
-  const updateCars = (newCars: Car[]) => {
-    localStorage.setItem("cars", JSON.stringify(newCars));
-    setAllCars(newCars);
-  };
+  const { deleteCar } = useCarsStore();
 
   const goToCarForm = () => {
     navigate("/carro/formulario");
@@ -43,17 +27,17 @@ export function CarList({ cars }: CarListProps) {
     navigate(`/carro/formulario`, { state: { car } });
   };
 
-  const removeCar = (id: string) => {
-    const updatedCars = allCars.filter((car) => car.id !== id);
-    updateCars(updatedCars);
-  };
-
   const search = (event: ChangeEvent<HTMLInputElement>) => {
     const valueSearch = event.target.value;
     setInputValue(valueSearch);
   };
 
-  const filteredCars = allCars.filter((car) => {
+  const handleDeleteCar = async (id: number) => {
+    await deleteCar(id);
+    alert("Carro removido com sucesso");
+  };
+
+  const filteredCars = cars.filter((car) => {
     return Object.values(car).some((value) =>
       format(String(value)).includes(format(inputValue))
     );
@@ -84,7 +68,6 @@ export function CarList({ cars }: CarListProps) {
             <th>id</th>
             <th>Nome</th>
             <th>Cor</th>
-            <th>Placa</th>
             <th>Ano</th>
             <th>Marca</th>
             <th>Ação</th>
@@ -97,14 +80,13 @@ export function CarList({ cars }: CarListProps) {
                 <td>{car.id}</td>
                 <td>{car.name}</td>
                 <td>{car.color}</td>
-                <td>{car.licensePlate}</td>
                 <td>{car.year}</td>
                 <td>{car.brand}</td>
                 <td className="actions">
                   <IconButton onClick={() => editCar(car)}>
                     <Pencil />
                   </IconButton>
-                  <IconButton onClick={() => removeCar(car.id)}>
+                  <IconButton onClick={() => handleDeleteCar(car.id)}>
                     <XIcon />
                   </IconButton>
                 </td>
