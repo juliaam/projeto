@@ -43,25 +43,8 @@ export function CarList({ cars }: CarListProps) {
     );
   });
 
-  return (
-    <div className="table" role="region">
-      <div className="table-header">
-        <h3 className="table-title">Carros</h3>
-        <div className="final-header">
-          <Input
-            placeholder="Busque por carros..."
-            type="text"
-            onChange={search}
-            value={inputValue}
-          />
-          <IconButton onClick={goToCarForm}>
-            <div className="icon-container">
-              <Plus />
-              Adicionar carro
-            </div>
-          </IconButton>
-        </div>
-      </div>
+  const renderTable = () => {
+    return (
       <table>
         <thead>
           <tr>
@@ -95,6 +78,34 @@ export function CarList({ cars }: CarListProps) {
           })}
         </tbody>
       </table>
+    );
+  };
+
+  const renderNotFound = () => {
+    return <p>Não há carros para exibir</p>;
+  };
+
+  return (
+    <div className="table overflow-auto w-full" role="region">
+      <div className="table-header flex justify-between items-center">
+        <h3 className="table-title max-w-[10%]">Carros</h3>
+        <div className="final-header flex gap-8">
+          <Input
+            placeholder="Busque por carros..."
+            type="text"
+            onChange={search}
+            value={inputValue}
+            className="p-2 border border-gray-300 rounded"
+          />
+          <IconButton onClick={goToCarForm}>
+            <div className="icon-container flex items-center gap-2">
+              <Plus />
+              Adicionar carro
+            </div>
+          </IconButton>
+        </div>
+      </div>
+      {cars.length ? renderTable() : renderNotFound()}
     </div>
   );
 }
