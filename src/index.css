@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   height: 100vh;
 
@@ -22,9 +26,4 @@ html {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
-
-.container {
-  padding-top: 3rem;
-  padding-inline: 14rem;
 }

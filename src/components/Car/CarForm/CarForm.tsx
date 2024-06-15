@@ -3,7 +3,6 @@ import { Input } from "../../Input/Input.tsx";
 import { IconButton } from "../../IconButton/IconButton.tsx";
 import { Check } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
-import "./CarForm.css";
 import useCarsStore from "../../../stores/cars.ts";
 import { Car } from "../../../types/Car.ts";
 
@@ -76,40 +75,44 @@ export function CarForm() {
   };
 
   return (
-    <div className="car-form">
-      <div className="input-group">
+    <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-2.5">
         <Input
           label="Nome"
           name="name"
           value={formData.name}
           onChange={handleInputChange}
+          className="w-full"
         />
         <Input
           label="Cor"
           name="color"
           value={formData.color}
           onChange={handleInputChange}
+          className="w-full"
         />
         <Input
           label="Ano"
           name="year"
           value={formData.year}
           onChange={handleInputChange}
+          className="w-full"
         />
         <Input
           label="Marca"
           name="brand"
           value={formData.brand}
           onChange={handleInputChange}
+          className="w-full"
         />
       </div>
       {fieldMissing && (
-        <div className="error-message">
+        <div className="text-red-500">
           Necessário preencher: '{fieldMissing}'
         </div>
       )}
-      <IconButton className="button-form" onClick={submit}>
-        <div className="icon-container">
+      <IconButton className="w-full cursor-pointer" onClick={submit}>
+        <div className="text-xl flex gap-4 justify-center items-center">
           <Check />
           Confirmar
         </div>

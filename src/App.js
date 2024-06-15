@@ -1,4 +1,3 @@
-import "./App.css";
 import { Navbar } from "./components/Navbar/Navbar.tsx";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AppRouter } from "./Routes.js";
@@ -6,10 +5,10 @@ import { AppRouter } from "./Routes.js";
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="mb-20">
         <Navbar />
       </div>
-      <div className="container">
+      <div className="pt-3 px-16">
         <AppRouter />
       </div>
     </Router>

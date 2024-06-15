@@ -1,9 +1,12 @@
 import React from "react";
 
-import "./IconButton.css";
-
 export function IconButton(
   props: React.ButtonHTMLAttributes<HTMLButtonElement>
 ) {
-  return <button className="button" {...props}></button>;
+  return (
+    <button
+      className="py-2 px-1 border border-black rounded-md cursor-pointer"
+      {...props}
+    ></button>
+  );
 }

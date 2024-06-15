@@ -4,7 +4,6 @@ import { Input } from "../../Input/Input.tsx";
 import { useNavigate } from "react-router-dom";
 import { Pencil, Plus, XIcon } from "lucide-react";
 import type { Car } from "../../../types/Car.ts";
-import "./CarList.css";
 import useCarsStore from "../../../stores/cars.ts";
 
 type CarListProps = {
@@ -45,27 +44,49 @@ export function CarList({ cars }: CarListProps) {
 
   const renderTable = () => {
     return (
-      <table>
+      <table className="w-full border border-gray-300 table-fixed">
         <thead>
           <tr>
-            <th>id</th>
-            <th>Nome</th>
-            <th>Cor</th>
-            <th>Ano</th>
-            <th>Marca</th>
-            <th>Ação</th>
+            <th className="border border-black bg-red-500 text-black p-1">
+              id
+            </th>
+            <th className="border border-black bg-red-500 text-black p-1">
+              Nome
+            </th>
+            <th className="border border-black bg-red-500 text-black p-1">
+              Cor
+            </th>
+            <th className="border border-black bg-red-500 text-black p-1">
+              Ano
+            </th>
+            <th className="border border-black bg-red-500 text-black p-1">
+              Marca
+            </th>
+            <th className="border border-black bg-red-500 text-black p-1">
+              Ação
+            </th>
           </tr>
         </thead>
         <tbody>
           {filteredCars.map((car) => {
             return (
               <tr key={car.id}>
-                <td>{car.id}</td>
-                <td>{car.name}</td>
-                <td>{car.color}</td>
-                <td>{car.year}</td>
-                <td>{car.brand}</td>
-                <td className="actions">
+                <td className="border border-black bg-white text-black p-1">
+                  {car.id}
+                </td>
+                <td className="border border-black bg-white text-black p-1">
+                  {car.name}
+                </td>
+                <td className="border border-black bg-white text-black p-1">
+                  {car.color}
+                </td>
+                <td className="border border-black bg-white text-black p-1">
+                  {car.year}
+                </td>
+                <td className="border border-black bg-white text-black p-1">
+                  {car.brand}
+                </td>
+                <td className="border border-black bg-white text-black p-1 flex justify-center gap-8">
                   <IconButton onClick={() => editCar(car)}>
                     <Pencil />
                   </IconButton>
@@ -86,21 +107,20 @@ export function CarList({ cars }: CarListProps) {
   };
 
   return (
-    <div className="table overflow-auto w-full" role="region">
-      <div className="table-header flex justify-between items-center">
-        <h3 className="table-title max-w-[10%]">Carros</h3>
-        <div className="final-header flex gap-8">
+    <div className="overflow-auto w-full" role="region">
+      <div className="flex justify-between items-center">
+        <h3 className="max-w-[10%]">Carros</h3>
+        <div className="flex gap-8">
           <Input
             placeholder="Busque por carros..."
             type="text"
             onChange={search}
             value={inputValue}
-            className="p-2 border border-gray-300 rounded"
           />
           <IconButton onClick={goToCarForm}>
-            <div className="icon-container flex items-center gap-2">
+            <div className="flex items-center">
               <Plus />
-              Adicionar carro
+              <span>Adicionar carro</span>
             </div>
           </IconButton>
         </div>

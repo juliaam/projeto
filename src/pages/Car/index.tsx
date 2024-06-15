@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./index.css";
 import { CarList } from "../../components/Car/CarList/CarList.tsx";
 import useCarsStore from "../../stores/cars.ts";
 
