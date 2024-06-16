@@ -12,4 +12,8 @@ const config = [
   ...fixupConfigRules(pluginReactConfig),
 ];
 
+config.rules = {
+  "indent": ["error", 2],
+};
+
 export default config;

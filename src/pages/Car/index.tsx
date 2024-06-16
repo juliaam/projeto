@@ -6,16 +6,22 @@ export function CarPage() {
   const [allCars, setAllCars] = useState([]);
   const { findAllCars } = useCarsStore();
 
-  const reloadPage = () => {};
-
-  useEffect(() => {
-    const fetchCars = async () => {
+  const fetchCars = async () => {
+    try {
       const { data } = await findAllCars();
       setAllCars(data);
-    };
+    } catch (error) {
+      console.error("Error fetching cars:", error);
+    }
+  };
 
+  const reloadPage = async () => {
+    await fetchCars();
+  };
+
+  useEffect(() => {
     fetchCars();
-  }, [reloadPage]);
+  }, []);
 
   return (
     <div>

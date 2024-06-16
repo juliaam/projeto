@@ -13,7 +13,7 @@ type CarListProps = {
 
 const format = (value: string): string => value.toLowerCase().trim();
 
-export function CarList({ cars }: CarListProps) {
+export function CarList({ cars, reload }: CarListProps) {
   const [inputValue, setInputValue] = useState("");
   const navigate = useNavigate();
   const { deleteCar } = useCarsStore();
@@ -33,6 +33,7 @@ export function CarList({ cars }: CarListProps) {
 
   const handleDeleteCar = async (id: number) => {
     await deleteCar(id);
+    reload();
     alert("Carro removido com sucesso");
   };
 
