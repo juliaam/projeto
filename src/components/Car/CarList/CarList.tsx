@@ -1,10 +1,10 @@
-import React, { ChangeEvent, useState } from "react";
-import { IconButton } from "../../IconButton/IconButton.tsx";
-import { Input } from "../../Input/Input.tsx";
-import { useNavigate } from "react-router-dom";
-import { Pencil, Plus, XIcon } from "lucide-react";
-import type { Car } from "../../../types/Car.ts";
-import useCarsStore from "../../../stores/cars.ts";
+import React, { ChangeEvent, useState } from 'react';
+import { IconButton } from '../../IconButton/IconButton.tsx';
+import { Input } from '../../Input/Input.tsx';
+import { useNavigate } from 'react-router-dom';
+import { Pencil, Plus, XIcon } from 'lucide-react';
+import type { Car } from '../../../types/Car.ts';
+import useCarsStore from '../../../stores/cars.ts';
 
 type CarListProps = {
   cars: Car[];
@@ -14,12 +14,12 @@ type CarListProps = {
 const format = (value: string): string => value.toLowerCase().trim();
 
 export function CarList({ cars, reload }: CarListProps) {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState('');
   const navigate = useNavigate();
   const { deleteCar } = useCarsStore();
 
   const goToCarForm = () => {
-    navigate("/carro/formulario");
+    navigate('/carro/formulario');
   };
 
   const editCar = (car: Car) => {
@@ -34,7 +34,7 @@ export function CarList({ cars, reload }: CarListProps) {
   const handleDeleteCar = async (id: number) => {
     await deleteCar(id);
     reload();
-    alert("Carro removido com sucesso");
+    alert('Carro removido com sucesso');
   };
 
   const filteredCars = cars.filter((car) => {
@@ -109,7 +109,7 @@ export function CarList({ cars, reload }: CarListProps) {
 
   return (
     <div className="overflow-auto w-full" role="region">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center mb-4">
         <h3 className="max-w-[10%]">Carros</h3>
         <div className="flex gap-8">
           <Input

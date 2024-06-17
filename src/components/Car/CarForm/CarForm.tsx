@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { Input } from "../../Input/Input.tsx";
-import { IconButton } from "../../IconButton/IconButton.tsx";
-import { Check } from "lucide-react";
-import { useNavigate, useLocation } from "react-router-dom";
-import useCarsStore from "../../../stores/cars.ts";
-import { Car } from "../../../types/Car.ts";
+import React, { useState } from 'react';
+import { Input } from '../../Input/Input.tsx';
+import { IconButton } from '../../IconButton/IconButton.tsx';
+import { Check } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import useCarsStore from '../../../stores/cars.ts';
+import { Car } from '../../../types/Car.ts';
 
 export function CarForm() {
   const location = useLocation();
@@ -13,17 +13,17 @@ export function CarForm() {
 
   const [formData, setFormData] = useState({
     id: carToEdit?.id || 0,
-    name: carToEdit?.name || "",
-    color: carToEdit?.color || "",
-    year: carToEdit?.year || "",
-    brand: carToEdit?.brand || "",
+    name: carToEdit?.name || '',
+    color: carToEdit?.color || '',
+    year: carToEdit?.year || '',
+    brand: carToEdit?.brand || '',
   });
 
-  const [fieldMissing, setFieldMissing] = useState("");
+  const [fieldMissing, setFieldMissing] = useState('');
   const navigate = useNavigate();
 
   const goToMain = () => {
-    navigate("/");
+    navigate('/');
   };
 
   const handleInputChange = (event) => {
@@ -35,9 +35,9 @@ export function CarForm() {
   };
 
   const isValid = () => {
-    let missingField = "";
+    let missingField = '';
     Object.entries(formData).forEach(([key, value]) => {
-      if (!value && key !== "name" && key !== "id") {
+      if (!value && key !== 'name' && key !== 'id') {
         missingField = key;
       }
     });
@@ -57,20 +57,20 @@ export function CarForm() {
 
   const submit = async () => {
     if (!isValid()) {
-      alert("Preencha os dados corretamente");
+      alert('Preencha os dados corretamente');
       return;
     }
 
     if (carToEdit) {
       editCar(formData);
-      alert("Seu carro foi editado com sucesso!");
+      alert('Seu carro foi editado com sucesso!');
       goToMain();
       return;
     }
 
     formData.id = generateId();
     addCar(formData);
-    alert("Seu carro foi criado com sucesso!");
+    alert('Seu carro foi criado com sucesso!');
     goToMain();
   };
 
@@ -112,7 +112,7 @@ export function CarForm() {
         </div>
       )}
       <IconButton className="w-full cursor-pointer" onClick={submit}>
-        <div className="text-xl flex gap-4 justify-center items-center">
+        <div className="text-xl flex gap-4 justify-center items-center border border-black p-2">
           <Check />
           Confirmar
         </div>
