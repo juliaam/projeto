@@ -1,7 +1,5 @@
-import React from "react";
-import { CarForm } from "../../../components/Car/CarForm/CarForm.tsx";
-
-import "./index.css";
+import React from 'react';
+import { CarForm } from '../../../components/Car/CarForm/CarForm.tsx';
 
 export function CarFormPage() {
   return (
