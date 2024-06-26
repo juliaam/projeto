@@ -13,7 +13,7 @@ type CarListProps = {
 
 const format = (value: string): string => value.toLowerCase().trim();
 
-export function CarList({ cars, reload }: CarListProps) {
+export function CarList({ cars = [], reload }: CarListProps) {
   const [inputValue, setInputValue] = useState('');
   const navigate = useNavigate();
   const { deleteCar } = useCarsStore();
@@ -88,10 +88,16 @@ export function CarList({ cars, reload }: CarListProps) {
                   {car.brand}
                 </td>
                 <td className="border border-black bg-white text-black p-1 flex justify-center gap-8">
-                  <IconButton onClick={() => editCar(car)}>
+                  <IconButton
+                    aria-label={`editar-carro-${car.id}`}
+                    onClick={() => editCar(car)}
+                  >
                     <Pencil />
                   </IconButton>
-                  <IconButton onClick={() => handleDeleteCar(car.id)}>
+                  <IconButton
+                    aria-label={`remover-carro-${car.id}`}
+                    onClick={() => handleDeleteCar(car.id)}
+                  >
                     <XIcon />
                   </IconButton>
                 </td>

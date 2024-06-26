@@ -3,7 +3,7 @@ import { CarForm } from '../../../components/Car/CarForm/CarForm.tsx';
 
 export function CarFormPage() {
   return (
-    <div className="carFormPage">
+    <div className="grid place-content-center">
       <CarForm />
     </div>
   );
