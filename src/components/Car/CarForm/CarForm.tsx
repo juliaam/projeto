@@ -69,7 +69,7 @@ export function CarForm() {
     }
 
     formData.id = generateId();
-    addCar(formData);
+    await addCar(formData);
     alert('Seu carro foi criado com sucesso!');
     goToMain();
   };
@@ -83,6 +83,7 @@ export function CarForm() {
           value={formData.name}
           onChange={handleInputChange}
           className="w-full"
+          aria-label="Nome"
         />
         <Input
           label="Cor"
@@ -90,6 +91,7 @@ export function CarForm() {
           value={formData.color}
           onChange={handleInputChange}
           className="w-full"
+          aria-label="Cor"
         />
         <Input
           label="Ano"
@@ -97,6 +99,7 @@ export function CarForm() {
           value={formData.year}
           onChange={handleInputChange}
           className="w-full"
+          aria-label="Ano"
         />
         <Input
           label="Marca"
@@ -104,6 +107,7 @@ export function CarForm() {
           value={formData.brand}
           onChange={handleInputChange}
           className="w-full"
+          aria-label="Marca"
         />
       </div>
       {fieldMissing && (

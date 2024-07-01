@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { CarList } from "../../components/Car/CarList/CarList.tsx";
-import useCarsStore from "../../stores/cars.ts";
+import React, { useEffect, useState } from 'react';
+import { CarList } from '../../components/Car/CarList/CarList.tsx';
+import useCarsStore from '../../stores/cars.ts';
 
 export function CarPage() {
   const [allCars, setAllCars] = useState([]);
@@ -11,7 +11,7 @@ export function CarPage() {
       const { data } = await findAllCars();
       setAllCars(data);
     } catch (error) {
-      console.error("Error fetching cars:", error);
+      console.error('Error fetching cars:', error);
     }
   };
 
