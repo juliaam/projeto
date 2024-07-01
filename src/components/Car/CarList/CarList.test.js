@@ -11,8 +11,20 @@ jest.mock('react-router-dom', () => ({
 }));
 
 const mockCars = [
-  { id: 1, name: 'Carro A', color: 'Azul', year: 2022, brand: 'Marca A' },
-  { id: 2, name: 'Carro B', color: 'Vermelho', year: 2020, brand: 'Marca B' },
+  {
+    id: 2322,
+    name: 'Carro A',
+    color: 'Azul',
+    year: 2022,
+    brand: 'Marca A',
+  },
+  {
+    id: 2332,
+    name: 'Carro B',
+    color: 'Vermelho',
+    year: 2020,
+    brand: 'Marca B',
+  },
 ];
 
 describe('CarList', () => {
