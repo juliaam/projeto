@@ -62,7 +62,7 @@ describe('CarList', () => {
     );
     fireEvent.click(deleteButton);
 
-    expect(deleteCarMock).toHaveBeenCalledWith(1);
+    expect(deleteCarMock).toHaveBeenCalledWith(mockCars[0].id);
   });
 
   it('navigates to car form page when add car button is clicked', () => {
