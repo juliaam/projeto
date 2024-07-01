@@ -57,7 +57,9 @@ describe('CarList', () => {
 
     render(<CarList cars={mockCars} reload={jest.fn()} />);
 
-    const deleteButton = screen.getByLabelText('remover-carro-1');
+    const deleteButton = screen.getByLabelText(
+      `remover-carro-${mockCars[0].id}`
+    );
     fireEvent.click(deleteButton);
 
     expect(deleteCarMock).toHaveBeenCalledWith(1);
